@@ -1,0 +1,12 @@
+{%extends 'CodeHub/form_base.html'%}
+{%block content%}
+<a href="{%url 'out'%}"><button class="tr-btn">Log Out</button></a>
+<h4 style="float:right;">Welcome {{request.user}}!</h4>
+<a href="{%url 'new_ques'%}"><button class="btn2">Ask a Question</button></a>
+{%for question in questions%}
+    <div class="content">
+        <b><a href="{%url 'ques_detail' pk=question.pk%}">{{question.content|linebreaksbr}}</a></b><br>
+        <b><i>Asked By : {{question.author}} on {{question.added_time}}</i></b>
+    </div>
+{%endfor%}
+{%endblock%}

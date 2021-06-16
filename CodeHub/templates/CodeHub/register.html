@@ -1,0 +1,9 @@
+{%extends 'CodeHub/form_base.html'%}
+{%block content%}
+<a href="{%url 'identify'%}"><button class="tr-btn">Log In</button></a>
+<form method="POST" class="log-form">
+    {%csrf_token%}
+    {{form.as_p}}
+    <button type="submit" class="form-btn">Sign Up</button>
+</form>
+{%endblock%}

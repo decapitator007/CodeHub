@@ -1,0 +1,19 @@
+{%extends 'CodeHub/form_base.html'%}
+{%block content%}
+<a href="{%url 'out'%}"><button class="tr-btn">Log Out</button></a>
+<h4 style="float:right;">Welcome {{request.user}}!</h4>
+<a href="{%url 'add_ans' pk=question.pk%}"><button class="btn2">Answer this Question</button></a>
+<div class="content">
+    <h3 style="color:red;">{{question.content}}</h3>
+    <b style="color:red;"><i>Asked By : {{question.author}} on {{question.added_time}}</i></b>
+    {%for answer in answers%}
+        <hr>
+        {{answer.content|linebreaksbr}}<br>
+        <b><i>Answered By : {{answer.author}} on {{answer.added_time}}</i></b><br>
+        {%if answer.author == request.user%}
+            <a href="{%url 'edit_ans' pk=question.pk ak=answer.pk%}">{%include './icons/pencil-fill.svg'%}</a>
+            <a href="{%url 'delete_ans' pk=question.pk ak=answer.pk%}">{%include './icons/trash.svg'%}</a>
+        {%endif%}
+    {%endfor%}
+</div>
+{%endblock%}
