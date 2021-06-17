@@ -8,11 +8,12 @@
     <a href="{%url 'identify'%}"><button class="tr-btn">Log In</button></a>
     <a href="{%url 'register'%}"><button class="tr-btn">Sign Up</button></a>
 {%endif%}
-<a href="{%url 'new_ques'%}"><button class="btn2">Ask a Question</button></a>
-{%for question in questions%}
-    <div class="content">
-        <b><a href="{%url 'ques_detail' pk=question.pk%}">{{question.content|linebreaksbr}}</a></b><br>
-        <b><i>Asked By : <a href="{%url 'profile' string=question.author%}">{{question.author}}</a> on {{question.added_time}}</i></b>
-    </div>
-{%endfor%}
+<div class="content">
+    <b>Name : {{userob.first_name}} {{userob.last_name}}<br>
+    Username : {{userob.username}}<br>
+    Email : {{userob.email}}<br>
+    CF ID : {{cf.cfusername}}<br>
+    Current CF Rating : {{cf.rating}} ({{cf.rank}})<br>
+    Max CF Rating : {{cf.mrating}} ({{cf.mrank}})</b>
+</div>
 {%endblock%}

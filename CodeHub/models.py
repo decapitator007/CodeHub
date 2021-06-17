@@ -9,3 +9,10 @@ class Answer(models.Model):
     content=models.TextField()
     link_to_ques=models.ForeignKey(Question,on_delete=models.CASCADE)
     added_time=models.DateTimeField()
+class cfid(models.Model):
+    username=models.CharField(max_length=100)
+    cfusername=models.CharField(max_length=100)
+    mrating=models.IntegerField()
+    mrank=models.CharField(max_length=100)
+    rating=models.IntegerField()
+    rank=models.CharField(max_length=100)

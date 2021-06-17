@@ -8,6 +8,7 @@ class signup(forms.Form):
     lastname=forms.CharField(label='Last Name')
     username=forms.CharField(label='Username')
     email=forms.EmailField(label='Email')
+    cf=forms.CharField(label='Codeforces ID (Optional)',required=False)
     password=forms.CharField(label='Password',widget=forms.PasswordInput())
     cpassword=forms.CharField(label='Confirm Password',widget=forms.PasswordInput())
 class QForm(forms.ModelForm):

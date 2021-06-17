@@ -10,4 +10,5 @@ urlpatterns=[
     path('question/<int:pk>/delete/<int:ak>',views.delete_ans,name='delete_ans'),
     path('out/',views.out,name='out'),
     path('register/',views.register,name='register'),
+    path('profile/<string>/',views.profile,name='profile'),
 ]
