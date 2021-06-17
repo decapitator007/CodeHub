@@ -136,7 +136,7 @@ def register(request):
                     return render(request,'CodeHub/register.html',{'form':form})
                 User.objects.create_user(first_name=firstname,last_name=lastname,username=username,email=email,password=password)
                 details=response.json()['result'][0]
-                cfid.objects.create(username=request.user,mrating=details['maxRating'],mrank=details['maxRank'],rating=details['rating'],rank=details['rank'],cfusername=cf)
+                cfid.objects.create(username=username,mrating=details['maxRating'],mrank=details['maxRank'],rating=details['rating'],rank=details['rank'],cfusername=cf)
                 messages.success(request,'Account created successfully!')
                 send_mail('Welcome to CodeHub','Hi '+firstname+'! Thank you for registering on CodeHub.',settings.EMAIL_HOST_USER,[email])
                 return redirect('identify')
