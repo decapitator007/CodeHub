@@ -42,7 +42,13 @@ def schedule(request):
 def profile(request,string):
     cf=get_object_or_404(cfid,username=string)
     userob=get_object_or_404(User,username=string)
-    return render(request,'CodeHub/profile.html',{'cf':cf,'userob':userob})
+    apikey="dddd2a31aa144fa1b23a0cfe4d0b57c166f9cd91"
+    url="https://codeforces.com/api/user.info/"
+    handle=cf.cfusername
+    p={'apikey':apikey,'handles':[handle]}
+    response=requests.get(url,params=p)
+    details=response.json()['result'][0]
+    return render(request,'CodeHub/profile.html',{'cf':details,'userob':userob})
 def delete_ans(request,pk,ak):
     answer=get_object_or_404(Answer,pk=ak)
     if request.user.is_authenticated and request.user==answer.author:
@@ -165,8 +171,7 @@ def register(request):
                     messages.warning(request,error)
                     return render(request,'CodeHub/register.html',{'form':form})
                 User.objects.create_user(first_name=firstname,last_name=lastname,username=username,email=email,password=password)
-                details=response.json()['result'][0]
-                cfid.objects.create(username=username,mrating=details['maxRating'],mrank=details['maxRank'],rating=details['rating'],rank=details['rank'],cfusername=cf)
+                cfid.objects.create(username=username,cfusername=cf)
                 messages.success(request,'Account created successfully!')
                 send_mail('Welcome to CodeHub','Hi '+firstname+'! Thank you for registering on CodeHub.',settings.EMAIL_HOST_USER,[email])
                 return redirect('identify')

@@ -12,7 +12,3 @@ class Answer(models.Model):
 class cfid(models.Model):
     username=models.CharField(max_length=100)
     cfusername=models.CharField(max_length=100)
-    mrating=models.IntegerField()
-    mrank=models.CharField(max_length=100)
-    rating=models.IntegerField()
-    rank=models.CharField(max_length=100)
