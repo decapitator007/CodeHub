@@ -8,7 +8,37 @@ from .models import Question,Answer,cfid
 from django.contrib import messages
 from django.conf import settings
 from django.core.mail import send_mail
-import requests
+import requests,datetime
+def myFunc(e):
+    return e['start']
+def schedule(request):
+    url="https://kontests.net/api/v1/codeforces"
+    response=requests.get(url)
+    list=[]
+    for i in response.json():
+        str=i['start_time'][0:19]
+        i['start']=datetime.datetime.strptime(str,'%Y-%m-%dT%H:%M:%S')
+        if i['start']>=datetime.datetime.now():
+            i['start']+=datetime.timedelta(hours=5,minutes=30)
+            list.append(i)
+    url="https://kontests.net/api/v1/code_chef"
+    response=requests.get(url)
+    for i in response.json():
+        str=i['start_time'][0:19]
+        i['start']=datetime.datetime.strptime(str,'%Y-%m-%dT%H:%M:%S')
+        if i['start']>=datetime.datetime.now():
+            i['start']+=datetime.timedelta(hours=5,minutes=30)
+            list.append(i)
+    url="https://kontests.net/api/v1/leet_code"
+    response=requests.get(url)
+    for i in response.json():
+        str=i['start_time'][0:19]
+        i['start']=datetime.datetime.strptime(str,'%Y-%m-%dT%H:%M:%S')
+        if i['start']>=datetime.datetime.now():
+            i['start']+=datetime.timedelta(hours=5,minutes=30)
+            list.append(i)
+    list.sort(key=myFunc)
+    return render(request,'CodeHub/schedule.html',{'list':list})
 def profile(request,string):
     cf=get_object_or_404(cfid,username=string)
     userob=get_object_or_404(User,username=string)

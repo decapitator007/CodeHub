@@ -9,6 +9,7 @@
     <a href="{%url 'register'%}"><button class="tr-btn">Sign Up</button></a>
 {%endif%}
 <a href="{%url 'add_ans' pk=question.pk%}"><button class="btn2">Answer this Question</button></a>
+<a href="{%url 'schedule'%}"><button class="btn2">Schedule</button></a>
 <div class="content">
     <h3 style="color:red;">{{question.content}}</h3>
     <b style="color:red;"><i>Asked By : <a href="{%url 'profile' string=question.author%}">{{question.author}}</a> on {{question.added_time}}</i></b>

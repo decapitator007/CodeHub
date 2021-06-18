@@ -10,11 +10,8 @@
 {%endif%}
 <a href="{%url 'schedule'%}"><button class="btn2">Schedule</button></a>
 <div class="content">
-    <b>Name : {{userob.first_name}} {{userob.last_name}}<br>
-    Username : {{userob.username}}<br>
-    Email : {{userob.email}}<br>
-    CF ID : {{cf.cfusername}}<br>
-    Current CF Rating : {{cf.rating}} ({{cf.rank}})<br>
-    Max CF Rating : {{cf.mrating}} ({{cf.mrank}})</b>
+    {%for i in list%}
+        <b>{{i.name}} : {{i.start}}</b><br>
+    {%endfor%}
 </div>
 {%endblock%}
