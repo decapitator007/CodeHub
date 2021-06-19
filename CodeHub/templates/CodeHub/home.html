@@ -10,6 +10,7 @@
 {%endif%}
 <a href="{%url 'new_ques'%}"><button class="btn2">Ask a Question</button></a>
 <a href="{%url 'schedule'%}"><button class="btn2">Schedule</button></a>
+<a href="{%url 'list'%}"><button class="btn2">List of Users</button></a>
 {%for question in questions%}
     <div class="content">
         <b><a href="{%url 'ques_detail' pk=question.pk%}">{{question.content|linebreaksbr}}</a></b><br>

@@ -9,6 +9,9 @@ from django.contrib import messages
 from django.conf import settings
 from django.core.mail import send_mail
 import requests,datetime
+def list(request):
+    userlist=User.objects.all()
+    return render(request,'CodeHub/list.html',{'userlist':userlist})
 def myFunc(e):
     return e['start']
 def schedule(request):
