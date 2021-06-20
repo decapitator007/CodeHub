@@ -5,7 +5,7 @@
     <a href="{%url 'profile' string=request.user%}"><button class="tr-btn">Your Profile</button></a>
     <h4 style="float:right;">Welcome {{request.user}}!</h4>
 {%else%}
-    <a href="{%url 'identify'%}"><button class="tr-btn">Log In</button></a>
+    <a href='/identify/?next={{request.path}}'><button class="tr-btn">Log In</button></a>
     <a href="{%url 'register'%}"><button class="tr-btn">Sign Up</button></a>
 {%endif%}
 <a href="{%url 'schedule'%}"><button class="btn2">Schedule</button></a>

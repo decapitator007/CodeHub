@@ -132,7 +132,11 @@ def identify(request):
                 if user is not None:
                     login(request,user)
                     messages.success(request,'Logged in!')
-                    return redirect('home')
+                    if 'next' in request.GET:
+                        next=request.GET['next']
+                        return redirect(next)
+                    else:
+                        return redirect('home')
                 else:
                     messages.warning(request,'Invalid Credentials!')
                     return render(request,'CodeHub/identify.html',{'form':form})
