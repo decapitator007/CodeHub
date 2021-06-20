@@ -20,25 +20,22 @@ def schedule(request):
     list=[]
     for i in response.json():
         str=i['start_time'][0:19]
-        i['start']=datetime.datetime.strptime(str,'%Y-%m-%dT%H:%M:%S')
+        i['start']=datetime.datetime.strptime(str,'%Y-%m-%dT%H:%M:%S')+datetime.timedelta(hours=5,minutes=30)
         if i['start']>=datetime.datetime.now():
-            i['start']+=datetime.timedelta(hours=5,minutes=30)
             list.append(i)
     url="https://kontests.net/api/v1/code_chef"
     response=requests.get(url)
     for i in response.json():
         str=i['start_time'][0:19]
-        i['start']=datetime.datetime.strptime(str,'%Y-%m-%dT%H:%M:%S')
+        i['start']=datetime.datetime.strptime(str,'%Y-%m-%dT%H:%M:%S')+datetime.timedelta(hours=5,minutes=30)
         if i['start']>=datetime.datetime.now():
-            i['start']+=datetime.timedelta(hours=5,minutes=30)
             list.append(i)
     url="https://kontests.net/api/v1/leet_code"
     response=requests.get(url)
     for i in response.json():
         str=i['start_time'][0:19]
-        i['start']=datetime.datetime.strptime(str,'%Y-%m-%dT%H:%M:%S')
+        i['start']=datetime.datetime.strptime(str,'%Y-%m-%dT%H:%M:%S')+datetime.timedelta(hours=5,minutes=30)
         if i['start']>=datetime.datetime.now():
-            i['start']+=datetime.timedelta(hours=5,minutes=30)
             list.append(i)
     list.sort(key=myFunc)
     return render(request,'CodeHub/schedule.html',{'list':list})
