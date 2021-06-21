@@ -165,12 +165,20 @@ def register(request):
                 handle=cf
                 p={'apikey':apikey,'handles':[handle]}
                 response=requests.get(url,params=p)
+                u="https://mailcheck.p.rapidapi.com/"
+                querystring={"domain":email}
+                headers={'x-rapidapi-key':"d1ef0714e4msh5108dce6969ee1ep1e4e75jsnb180e18e0179",'x-rapidapi-host':"mailcheck.p.rapidapi.com"}
+                result=requests.get(u,headers=headers,params=querystring)
                 if User.objects.filter(username=username).exists():
                     error="This username is already registered!"
+                elif result.json()['block']==True or result.json()['valid']==False or result.json()['disposable']==True:
+                    error="Invalid email!"
                 elif User.objects.filter(email=email).exists():
                     error="This email is already registered!"
                 elif response.json()['status']!="OK":
                     error="Codeforces ID is incorrect!"
+                elif len(password)<8 or len(password)>16:
+                    error='Invalid length of password!'
                 elif password!=cpassword:
                     error="Passwords did not match!"
                 if error!="":
