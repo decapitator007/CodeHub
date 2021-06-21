@@ -96,7 +96,8 @@ def new_ques(request):
         return render(request,'CodeHub/new_ques.html',{'form':form})
     else:
         messages.warning(request,'You must login to ask a question!')
-        return redirect('identify')
+        cur_path=request.path
+        return redirect('/identify/?next='+cur_path)
 def add_ans(request,pk):
     question=get_object_or_404(Question,pk=pk)
     if request.user.is_authenticated:
@@ -115,7 +116,8 @@ def add_ans(request,pk):
         return render(request,'CodeHub/add_ans.html',{'form':form})
     else:
         messages.warning(request,'You must login to answer a question!')
-        return redirect('identify')
+        cur_path=request.path
+        return redirect('/identify/?next='+cur_path)
 def home(request):
     questions=Question.objects.order_by('-added_time')
     return render(request,'CodeHub/home.html',{'questions':questions})
@@ -185,5 +187,10 @@ def register(request):
 def out(request):
     if request.user.is_authenticated:
         logout(request)
+        if 'next' in request.GET:
+            next=request.GET['next']
+            return redirect(next)
+        else:
+            return redirect('home')
         messages.success(request,'Logged out!')
     return redirect('identify')
