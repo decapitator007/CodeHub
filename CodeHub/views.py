@@ -1,5 +1,4 @@
 from django.shortcuts import render,get_object_or_404,redirect
-from django.http import HttpResponse
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
@@ -9,46 +8,39 @@ from django.contrib import messages
 from django.conf import settings
 from django.core.mail import send_mail
 import requests,datetime
+#List of Users
 def list(request):
     userlist=User.objects.all()
     return render(request,'CodeHub/list.html',{'userlist':userlist})
+#Schedule
 def myFunc(e):
     return e['start']
+def kontests(url,list):
+    response=requests.get(url)
+    for i in response.json():
+        str=i['start_time'][0:19]
+        i['start']=datetime.datetime.strptime(str,'%Y-%m-%dT%H:%M:%S')+datetime.timedelta(hours=5,minutes=30)
+        if i['start']>datetime.datetime.now():
+            list.append(i)
 def schedule(request):
-    url="https://kontests.net/api/v1/codeforces"
-    response=requests.get(url)
     list=[]
-    for i in response.json():
-        str=i['start_time'][0:19]
-        i['start']=datetime.datetime.strptime(str,'%Y-%m-%dT%H:%M:%S')+datetime.timedelta(hours=5,minutes=30)
-        if i['start']>=datetime.datetime.now():
-            list.append(i)
-    url="https://kontests.net/api/v1/code_chef"
-    response=requests.get(url)
-    for i in response.json():
-        str=i['start_time'][0:19]
-        i['start']=datetime.datetime.strptime(str,'%Y-%m-%dT%H:%M:%S')+datetime.timedelta(hours=5,minutes=30)
-        if i['start']>=datetime.datetime.now():
-            list.append(i)
-    url="https://kontests.net/api/v1/leet_code"
-    response=requests.get(url)
-    for i in response.json():
-        str=i['start_time'][0:19]
-        i['start']=datetime.datetime.strptime(str,'%Y-%m-%dT%H:%M:%S')+datetime.timedelta(hours=5,minutes=30)
-        if i['start']>=datetime.datetime.now():
-            list.append(i)
+    kontests("https://kontests.net/api/v1/codeforces",list)
+    kontests("https://kontests.net/api/v1/code_chef",list)
+    kontests("https://kontests.net/api/v1/leet_code",list)
     list.sort(key=myFunc)
     return render(request,'CodeHub/schedule.html',{'list':list})
+#Profile
 def profile(request,string):
     cf=get_object_or_404(cfid,username=string)
     userob=get_object_or_404(User,username=string)
     apikey="dddd2a31aa144fa1b23a0cfe4d0b57c166f9cd91"
     url="https://codeforces.com/api/user.info/"
     handle=cf.cfusername
-    p={'apikey':apikey,'handles':[handle]}
-    response=requests.get(url,params=p)
+    params={'apikey':apikey,'handles':[handle]}
+    response=requests.get(url,params=params)
     details=response.json()['result'][0]
     return render(request,'CodeHub/profile.html',{'cf':details,'userob':userob})
+#Delete Answer
 def delete_ans(request,pk,ak):
     answer=get_object_or_404(Answer,pk=ak)
     if request.user.is_authenticated and request.user==answer.author:
@@ -60,6 +52,7 @@ def delete_ans(request,pk,ak):
             return render(request,'CodeHub/delete_ans.html',{})
     else:
         return redirect('home')
+#Edit Answer
 def edit_ans(request,pk,ak):
     answer=get_object_or_404(Answer,pk=ak)
     if request.user.is_authenticated and request.user==answer.author:
@@ -76,10 +69,12 @@ def edit_ans(request,pk,ak):
         return render(request,'CodeHub/add_ans.html',{'form':form})
     else:
         return redirect('home')
+#All answers of a question
 def ques_detail(request,pk):
     question=get_object_or_404(Question,pk=pk)
     answers=Answer.objects.filter(link_to_ques=question).order_by('-added_time')
     return render(request,'CodeHub/ques_detail.html',{'question':question,'answers':answers})
+#Add a question
 def new_ques(request):
     if request.user.is_authenticated:
         if request.method=='POST':
@@ -98,6 +93,7 @@ def new_ques(request):
         messages.warning(request,'You must login to ask a question!')
         cur_path=request.path
         return redirect('/identify/?next='+cur_path)
+#Add an answer
 def add_ans(request,pk):
     question=get_object_or_404(Question,pk=pk)
     if request.user.is_authenticated:
@@ -118,9 +114,11 @@ def add_ans(request,pk):
         messages.warning(request,'You must login to answer a question!')
         cur_path=request.path
         return redirect('/identify/?next='+cur_path)
+#Home Page
 def home(request):
     questions=Question.objects.order_by('-added_time')
     return render(request,'CodeHub/home.html',{'questions':questions})
+#Login
 def identify(request):
     if request.user.is_authenticated:
         return redirect('home')
@@ -145,6 +143,30 @@ def identify(request):
         else:
             form=signin()
         return render(request,'CodeHub/identify.html',{'form':form})
+#Signup
+def isvalid(cf,email,username,password,cpassword):
+    error=''
+    apikey="dddd2a31aa144fa1b23a0cfe4d0b57c166f9cd91"
+    url="https://codeforces.com/api/user.info/"
+    params={'apikey':apikey,'handles':[cf]}
+    response=requests.get(url,params=params)
+    url="https://mailcheck.p.rapidapi.com/"
+    params={"domain":email}
+    headers={'x-rapidapi-key':"d1ef0714e4msh5108dce6969ee1ep1e4e75jsnb180e18e0179",'x-rapidapi-host':"mailcheck.p.rapidapi.com"}
+    result=requests.get(url,headers=headers,params=params)
+    if User.objects.filter(username=username).exists():
+        error="This username is already registered!"
+    elif result.json()['block']==True or result.json()['valid']==False or result.json()['disposable']==True:
+        error="Invalid email!"
+    elif User.objects.filter(email=email).exists():
+        error="This email is already registered!"
+    elif response.json()['status']!="OK":
+        error="Codeforces ID is incorrect!"
+    elif len(password)<8 or len(password)>16:
+        error='Invalid length of password!'
+    elif password!=cpassword:
+        error="Passwords did not match!"
+    return error
 def register(request):
     if request.user.is_authenticated:
         return redirect('home')
@@ -159,28 +181,7 @@ def register(request):
                 password=form.cleaned_data.get("password")
                 cpassword=form.cleaned_data.get("cpassword")
                 cf=form.cleaned_data.get("cf")
-                error=""
-                apikey="dddd2a31aa144fa1b23a0cfe4d0b57c166f9cd91"
-                url="https://codeforces.com/api/user.info/"
-                handle=cf
-                p={'apikey':apikey,'handles':[handle]}
-                response=requests.get(url,params=p)
-                u="https://mailcheck.p.rapidapi.com/"
-                querystring={"domain":email}
-                headers={'x-rapidapi-key':"d1ef0714e4msh5108dce6969ee1ep1e4e75jsnb180e18e0179",'x-rapidapi-host':"mailcheck.p.rapidapi.com"}
-                result=requests.get(u,headers=headers,params=querystring)
-                if User.objects.filter(username=username).exists():
-                    error="This username is already registered!"
-                elif result.json()['block']==True or result.json()['valid']==False or result.json()['disposable']==True:
-                    error="Invalid email!"
-                elif User.objects.filter(email=email).exists():
-                    error="This email is already registered!"
-                elif response.json()['status']!="OK":
-                    error="Codeforces ID is incorrect!"
-                elif len(password)<8 or len(password)>16:
-                    error='Invalid length of password!'
-                elif password!=cpassword:
-                    error="Passwords did not match!"
+                error=isvalid(cf,email,username,password,cpassword)
                 if error!="":
                     messages.warning(request,error)
                     return render(request,'CodeHub/register.html',{'form':form})
@@ -192,13 +193,14 @@ def register(request):
         else:
             form=signup()
         return render(request,'CodeHub/register.html',{'form':form})
+#Logout
 def out(request):
     if request.user.is_authenticated:
         logout(request)
+        messages.success(request,'Logged out!')
         if 'next' in request.GET:
             next=request.GET['next']
             return redirect(next)
         else:
             return redirect('home')
-        messages.success(request,'Logged out!')
     return redirect('identify')
