@@ -51,7 +51,7 @@ def delete_ans(request,pk,ak):
         else:
             return render(request,'CodeHub/delete_ans.html',{})
     else:
-        return redirect('home')
+        return redirect('identify')
 #Edit Answer
 def edit_ans(request,pk,ak):
     answer=get_object_or_404(Answer,pk=ak)
@@ -68,7 +68,7 @@ def edit_ans(request,pk,ak):
             form=AForm(instance=answer)
         return render(request,'CodeHub/add_ans.html',{'form':form})
     else:
-        return redirect('home')
+        return redirect('identify')
 #All answers of a question
 def ques_detail(request,pk):
     question=get_object_or_404(Question,pk=pk)

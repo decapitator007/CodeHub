@@ -1,16 +1,5 @@
 {%extends 'CodeHub/form_base.html'%}
 {%block content%}
-{%if user.is_authenticated%}
-    <a href='/out/?next={{request.path}}'><button class="tr-btn">Log Out</button></a>
-    <a href="{%url 'profile' string=request.user%}"><button class="tr-btn">Your Profile</button></a>
-    <h4 style="float:right;">Welcome {{request.user}}!</h4>
-{%else%}
-    <a href='/identify/?next={{request.path}}'><button class="tr-btn">Log In</button></a>
-    <a href="{%url 'register'%}"><button class="tr-btn">Sign Up</button></a>
-{%endif%}
-<a href="{%url 'new_ques'%}"><button class="btn2">Ask a Question</button></a>
-<a href="{%url 'schedule'%}"><button class="btn2">Schedule</button></a>
-<a href="{%url 'list'%}"><button class="btn2">List of Users</button></a>
 {%for question in questions%}
     <div class="content">
         <b><a href="{%url 'ques_detail' pk=question.pk%}">{{question.content|linebreaksbr}}</a></b><br>

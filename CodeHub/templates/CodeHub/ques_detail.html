@@ -1,19 +1,9 @@
 {%extends 'CodeHub/form_base.html'%}
 {%block content%}
-{%if user.is_authenticated%}
-    <a href='/out/?next={{request.path}}'><button class="tr-btn">Log Out</button></a>
-    <a href="{%url 'profile' string=request.user%}"><button class="tr-btn">Your Profile</button></a>
-    <h4 style="float:right;">Welcome {{request.user}}!</h4>
-{%else%}
-    <a href='/identify/?next={{request.path}}'><button class="tr-btn">Log In</button></a>
-    <a href="{%url 'register'%}"><button class="tr-btn">Sign Up</button></a>
-{%endif%}
-<a href="{%url 'add_ans' pk=question.pk%}"><button class="btn2">Answer this Question</button></a>
-<a href="{%url 'schedule'%}"><button class="btn2">Schedule</button></a>
-<a href="{%url 'list'%}"><button class="btn2">List of Users</button></a>
 <div class="content">
     <h3 style="color:red;">{{question.content}}</h3>
-    <b style="color:red;"><i>Asked By : <a href="{%url 'profile' string=question.author%}">{{question.author}}</a> on {{question.added_time}}</i></b>
+    <b style="color:red;"><i>Asked By : <a href="{%url 'profile' string=question.author%}">{{question.author}}</a> on {{question.added_time}}</i></b><br>
+    <a href="{%url 'add_ans' pk=question.pk%}"><button class="form-btn">Answer this Question</button></a>
     {%for answer in answers%}
         <hr>
         {{answer.content|linebreaksbr}}<br>
