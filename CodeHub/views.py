@@ -38,7 +38,10 @@ def profile(request,string):
     handle=cf.cfusername
     params={'apikey':apikey,'handles':[handle]}
     response=requests.get(url,params=params)
-    details=response.json()['result'][0]
+    if cf.cfusername=="":
+        details={}
+    else:
+        details=response.json()['result'][0]
     return render(request,'CodeHub/profile.html',{'cf':details,'userob':userob})
 #Delete Answer
 def delete_ans(request,pk,ak):
@@ -160,7 +163,7 @@ def isvalid(cf,email,username,password,cpassword):
         error="Invalid email!"
     elif User.objects.filter(email=email).exists():
         error="This email is already registered!"
-    elif response.json()['status']!="OK":
+    elif response.json()['status']!="OK" and len(cf)>0:
         error="Codeforces ID is incorrect!"
     elif len(password)<8 or len(password)>16:
         error='Invalid length of password!'
