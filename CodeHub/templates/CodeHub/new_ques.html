@@ -1,8 +1,13 @@
 {%extends 'CodeHub/form_base.html'%}
 {%block content%}
-<form method="POST" class="log-form" style="width:1000px;">
-    {%csrf_token%}
-    {{form.as_p}}
-<button type="submit" class="form-btn">Add Question</button>
-</form>
+<div class="content">
+    <h4>Ask a Question</h4><hr>
+    <form method="POST" class="content-form">
+        {%csrf_token%}
+        {{form.as_p}}
+        <div class="center">
+            <button type="submit" class="form-btn">Add Question</button>
+        </div>
+    </form>
+</div>
 {%endblock%}

@@ -1,6 +1,7 @@
 {%extends 'CodeHub/form_base.html'%}
 {%block content%}
 <div class="content">
+    <h4>User List</h4><hr>
     {%for i in userlist%}
         <b>{{i.first_name}} {{i.last_name}} : <a href="{%url 'profile' string=i.username%}">{{i.username}}</a></b><br>
     {%endfor%}

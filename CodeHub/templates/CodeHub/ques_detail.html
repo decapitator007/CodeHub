@@ -1,16 +1,20 @@
 {%extends 'CodeHub/form_base.html'%}
 {%block content%}
 <div class="content">
-    <h3 style="color:red;">{{question.content}}</h3>
-    <b style="color:red;"><i>Asked By : <a href="{%url 'profile' string=question.author%}">{{question.author}}</a> on {{question.added_time}}</i></b><br>
-    <a href="{%url 'add_ans' pk=question.pk%}"><button class="form-btn">Answer this Question</button></a>
+    <h5>{{question.content}}</h5>
+    <b><i>Asked By : <a href="{%url 'profile' string=question.author%}">{{question.author}}</a> on {{question.added_time}}</i></b><br>
+    <div class="center">
+        <a href="{%url 'add_ans' pk=question.pk%}"><button class="form-btn">Answer this Question</button></a>
+    </div>
     {%for answer in answers%}
         <hr>
         {{answer.content|linebreaksbr}}<br>
         <b><i>Answered By : <a href="{%url 'profile' string=answer.author%}">{{answer.author}}</a> on {{answer.added_time}}</i></b><br>
         {%if answer.author == request.user%}
-            <a href="{%url 'edit_ans' pk=question.pk ak=answer.pk%}">{%include './icons/pencil-fill.svg'%}</a>
-            <a href="{%url 'delete_ans' pk=question.pk ak=answer.pk%}">{%include './icons/trash.svg'%}</a>
+            <div class="center">
+                <a href="{%url 'edit_ans' pk=question.pk ak=answer.pk%}">{%include './icons/pencil-fill.svg'%}</a>
+                <a href="{%url 'delete_ans' pk=question.pk ak=answer.pk%}">{%include './icons/trash.svg'%}</a>
+            </div>
         {%endif%}
     {%endfor%}
 </div>

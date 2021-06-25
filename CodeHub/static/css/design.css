@@ -1,75 +1,101 @@
 h1{
-    font-size:40pt;
-    background-color:white;
-    text-align:center;
-    padding:20px;
-    border:5px solid green;
+  background-color:#fce77d;
+  text-align:center;
+  padding-top:20px;
+  padding-bottom:20px;
+  margin:0;
+}
+h1 a:visited,a:active,a:hover,a:link{
+  color:#f96167;
+}
+.navbar{
+  background-color:#f96167;
+  color:#fce77d;
+}
+.navbar ul{
+  margin:0;
+  padding:0;
+}
+.navbar>.left li{
+  list-style:none;
+  float:left;
+}
+.navbar>.right li{
+  list-style:none;
+  float:right;
+}
+.navbar li a{
+  padding-left:20px;
+  padding-right:20px;
+  color:#fce77d;
+}
+.navbar li a:hover{
+  color:black;
+}
+a:visited,a:active,a:link{
+  text-decoration:none;
+  color:#f96167;
+}
+a:hover{
+  text-decoration:none;
+  color:black;
 }
 body{
-    color:green;
-    background-color:#ffe6e6;
+  color:#2BAE66FF;
+  background-color:#ffe6e6;
 }
-a:visited,a:active,a:hover,a:link{
-    color:red;
-    text-decoration:none;
+h4{
+  text-align:center;
+  color:black;
 }
-.tr-btn{
-    float:right;
-    color:green;
-    background:white;
-    border-color:green;
-    border-radius:8px;
-    padding:5px;
-    margin-right:10px;
-    margin-left:15px;
-}
-.btn2{
-    float:left;
-    margin-left:10px;
-    margin-bottom:10px;
-    color:green;
-    background:white;
-    border-color:green;
-    border-radius:8px;
-    padding:5px;
-}
-.form-btn{
-    color:green;
-    background:white;
-    border-color:green;
-    border-radius:8px;
-    padding:5px;
-}
-.tr-btn:hover,.btn2:hover,.form-btn:hover{
-    color:white;
-    background:green;
-    transition-duration:0.6s;
+hr{
+  border-top:2px solid black;
 }
 .content{
-    clear:both;
-    padding:10px;
-    text-align:center;
-    background-color:white;
-    margin-left:400px;
-    margin-right:400px;
-    border:2px solid green;
-    margin-top:5px;
-    margin-bottom:5px;
+  padding:20px;
+  background-color:white;
+  width:45%;
+  border:2px solid black;
+  margin:auto;
+  margin-top:20px;
+  margin-bottom:20px;
 }
 .log-form{
-    color:green;
-    width:500px;
-    clear:both;
-    padding:25px;
+  width:65%;
+  margin:auto;
 }
 .log-form input{
-    width:100%;
-    border:2px solid green;
-    border-radius:8px;
+  width:100%;
+  border:2px solid #2BAE66FF;
+  border-radius:8px;
 }
-.log-form textarea{
-    width:100%;
-    border:2px solid green;
-    border-radius:8px;
-    resize:none;
+.form-btn{
+  color:#2BAE66FF;
+  background:white;
+  border-color:#2BAE66FF;
+  border-radius:8px;
+  padding:5px;
+  margin:10px;
+}
+.form-btn:hover{
+  color:white;
+  background:#2BAE66FF;
+  transition-duration:0.6s;
+}
+h5{
+  color:black;
+}
+.center{
+  text-align:center;
+}
+.content-form{
+  margin:auto;
+  width:100%;
+}
+.content-form textarea{
+  width:100%;
+  border:2px solid #2BAE66FF;
+  border-radius:8px;
+  resize:none;
+  height:150px;
 }

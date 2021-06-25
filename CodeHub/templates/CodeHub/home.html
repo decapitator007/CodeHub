@@ -1,9 +1,12 @@
 {%extends 'CodeHub/form_base.html'%}
 {%block content%}
+<div class="content">
+    <h4>All Questions</h4>
+</div>
 {%for question in questions%}
     <div class="content">
-        <b><a href="{%url 'ques_detail' pk=question.pk%}">{{question.content|linebreaksbr}}</a></b><br>
-        <b><i>Asked By : <a href="{%url 'profile' string=question.author%}">{{question.author}}</a> on {{question.added_time}}</i></b>
+        <b><a href="{%url 'ques_detail' pk=question.pk%}">{{question.content|linebreaksbr}}</a><br>
+        <i>Asked By : <a href="{%url 'profile' string=question.author%}">{{question.author}}</a> on {{question.added_time}}</i></b>
     </div>
 {%endfor%}
 {%endblock%}
