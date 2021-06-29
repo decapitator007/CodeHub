@@ -1,9 +1,22 @@
 {%extends 'CodeHub/form_base.html'%}
 {%block content%}
 <div class="content">
-    <h4>Upcoming Contests on Codeforces, Codechef and Leetcode</h4><hr>
-    {%for i in list%}
-        <b>{{i.name}} : {{i.start}}</b><br>
-    {%endfor%}
+    <h4>Upcoming Contests on Codeforces, Codechef and Leetcode</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Start Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for i in list%}
+            <tr>
+                <td>{{i.name}}</td>
+                <td>{{i.start}}</td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
 </div>
 {%endblock%}

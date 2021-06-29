@@ -1,16 +1,16 @@
 {%extends 'CodeHub/form_base.html'%}
 {%block content%}
 <div class="content">
-    <h4>Details of User</h4><hr>
-    <b>Name : {{userob.first_name}} {{userob.last_name}}<br>
-    Username : {{userob.username}}<br>
-    Email : {{userob.email}}<br>
+    <h4>User Details</h4><hr>
+    <b>Name :</b> {{userob.first_name}} {{userob.last_name}}<br>
+    <b>Username :</b> {{userob.username}}<br>
+    <b>Email :</b> {{userob.email}}<br>
     {%if cf%}
-        Codeforces ID : {{cf.handle}}<br>
-        Current Codeforces Rating : {{cf.rating}} ({{cf.rank}})<br>
-        Max Codeforces Rating : {{cf.maxRating}} ({{cf.maxRank}})
+        <b>Codeforces ID :</b> {{cf.handle}}<br>
+        <b>Current Codeforces Rating :</b> {{cf.rating}} ({{cf.rank}})<br>
+        <b>Max Codeforces Rating :</b> {{cf.maxRating}} ({{cf.maxRank}})
     {%else%}
-        Codeforces ID : Not Provided
-    {%endif%}</b>
+        <b>Codeforces ID :</b> Not Provided
+    {%endif%}
 </div>
 {%endblock%}

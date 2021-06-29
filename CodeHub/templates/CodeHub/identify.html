@@ -1,7 +1,7 @@
 {%extends 'CodeHub/form_base.html'%}
 {%block content%}
 <div class="content">
-    <h4>Login to CodeHub</h4><hr>
+    <h4>Log In</h4>
     <form method="POST" class="log-form">
         {%csrf_token%}
         {{form.as_p}}
