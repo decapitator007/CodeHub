@@ -1,16 +1,41 @@
 {%extends 'CodeHub/form_base.html'%}
 {%block content%}
 <div class="content">
-    <h4>User Details</h4><hr>
-    <b>Name :</b> {{userob.first_name}} {{userob.last_name}}<br>
-    <b>Username :</b> {{userob.username}}<br>
-    <b>Email :</b> {{userob.email}}<br>
-    {%if cf%}
-        <b>Codeforces ID :</b> {{cf.handle}}<br>
-        <b>Current Codeforces Rating :</b> {{cf.rating}} ({{cf.rank}})<br>
-        <b>Max Codeforces Rating :</b> {{cf.maxRating}} ({{cf.maxRank}})
-    {%else%}
-        <b>Codeforces ID :</b> Not Provided
-    {%endif%}
+    <h4>User Details</h4>
+    <table>
+        <tbody>
+            <tr>
+                <td><b>Name</b></td>
+                <td>{{userob.first_name}} {{userob.last_name}}</td>
+            </tr>
+            <tr>
+                <td><b>Username</b></td>
+                <td>{{userob.username}}</td>
+            </tr>
+            <tr>
+                <td><b>Email</b></td>
+                <td>{{userob.email}}</td>
+            </tr>
+            {%if cf%}
+                <tr>
+                    <td><b>Codeforces ID</b></td>
+                    <td>{{cf.handle}}</td>
+                </tr>
+                <tr>
+                    <td><b>Current Codeforces Rating</b></td>
+                    <td>{{cf.rating}} ({{cf.rank}})</td>
+                </tr>
+                <tr>
+                    <td><b>Max Codeforces Rating</b></td>
+                    <td>{{cf.maxRating}} ({{cf.maxRank}})</td>
+                </tr>
+            {%else%}
+                <tr>
+                    <td><b>Codeforces ID</b></td>
+                    <td>Not Provided</td>
+                </tr>
+            {%endif%}
+        </tbody>
+    </table>
 </div>
 {%endblock%}

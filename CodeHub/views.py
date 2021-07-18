@@ -23,10 +23,22 @@ def kontests(url,list):
         if i['start']>datetime.datetime.now():
             list.append(i)
 def schedule(request):
+    list1=[]
+    list2=[]
+    list3=[]
     list=[]
-    kontests("https://kontests.net/api/v1/codeforces",list)
-    kontests("https://kontests.net/api/v1/code_chef",list)
-    kontests("https://kontests.net/api/v1/leet_code",list)
+    kontests("https://kontests.net/api/v1/codeforces",list1)
+    kontests("https://kontests.net/api/v1/code_chef",list2)
+    kontests("https://kontests.net/api/v1/leet_code",list3)
+    for i in list1:
+        i['site']='Codeforces'
+        list.append(i)
+    for i in list2:
+        i['site']='Codechef'
+        list.append(i)
+    for i in list3:
+        i['site']='Leetcode'
+        list.append(i)
     list.sort(key=myFunc)
     return render(request,'CodeHub/schedule.html',{'list':list})
 #Profile
