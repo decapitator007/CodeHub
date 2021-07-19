@@ -12,3 +12,5 @@ class Answer(models.Model):
 class cfid(models.Model):
     username=models.CharField(max_length=100)
     cfusername=models.CharField(max_length=100)
+    no_of_q=models.IntegerField(default=0)
+    no_of_a=models.IntegerField(default=0)

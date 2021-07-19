@@ -57,7 +57,7 @@ def profile(request,string):
         details={}
     else:
         details=response.json()['result'][0]
-    return render(request,'CodeHub/profile.html',{'cf':details,'userob':userob})
+    return render(request,'CodeHub/profile.html',{'cf':details,'userob':userob,'contri':cf})
 #Delete Answer
 def delete_ans(request,pk,ak):
     answer=get_object_or_404(Answer,pk=ak)
@@ -65,6 +65,9 @@ def delete_ans(request,pk,ak):
         if request.method=="POST":
             if 'yes' in request.POST:
                 answer.delete()
+                cf=get_object_or_404(cfid,username=request.user)
+                cf.no_of_a=cf.no_of_a-1
+                cf.save()
             return redirect('ques_detail',pk=pk)
         else:
             return render(request,'CodeHub/delete_ans.html',{})
@@ -102,6 +105,9 @@ def new_ques(request):
                 question.author=request.user
                 question.added_time=timezone.now()
                 question.save()
+                cf=get_object_or_404(cfid,username=request.user)
+                cf.no_of_q=cf.no_of_q+1
+                cf.save()
                 messages.success(request,'Your question has been added!')
                 return redirect('home')
         else:
@@ -123,6 +129,9 @@ def add_ans(request,pk):
                 answer.added_time=timezone.now()
                 answer.link_to_ques=question
                 answer.save()
+                cf=get_object_or_404(cfid,username=request.user)
+                cf.no_of_a=cf.no_of_a+1
+                cf.save()
                 messages.success(request,'Your answer has been added!')
                 return redirect('ques_detail',pk=pk)
         else:
