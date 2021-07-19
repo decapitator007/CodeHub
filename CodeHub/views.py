@@ -8,6 +8,9 @@ from django.contrib import messages
 from django.conf import settings
 from django.core.mail import send_mail
 import requests,datetime
+#About
+def about(request):
+    return render(request,'CodeHub/about.html',{})
 #List of Users
 def list(request):
     userlist=User.objects.all()

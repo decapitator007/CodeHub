@@ -1,0 +1,20 @@
+{%extends 'CodeHub/form_base.html'%}
+{%load static%}
+{%block content%}
+<div class="content">
+    <h4>About</h4>
+    <ul>
+        <li>CodeHub is a Question and Answer Website on which registered users can ask and answer questions about programming.</li>
+        <li>The users can also edit and delete their answers.</li>
+        <li>The Kontests API has been used to display the upcoming contest schedule of popular programming websites.</li>
+        <li>The Codeforces API has been used to display the ratings of all users on their profile page.</li>
+    </ul>
+    <hr>
+    <div class="center">
+        <b>Suryansh Singh (IIT BHU Varanasi)</b><br>
+        <img src="{%static 'images/Gmail.png'%}" style="height:40px;width:40px"> : suryanshsingh640@gmail.com<br>
+        <a href="https://www.facebook.com/suryansh.dhoni/">{%include './icons/fb.svg'%}</a>
+        <a href="https://github.com/decapitator007"><img src="{%static 'images/git1.png'%}" style="height:40px;width:40px"></a>
+    </div>
+</div>
+{%endblock%}
