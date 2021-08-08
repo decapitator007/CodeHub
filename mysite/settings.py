@@ -18,7 +18,8 @@ CKEDITOR_CONFIGS={
         'width':'100%',
         'toolbar':'Custom',
         'toolbar_Custom':[
-            ['Bold','Italic','Underline','Strike','TextColor','SpecialChar','Undo','Redo','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','NumberedList','BulletedList','Preview','Templates','Link','Unlink','Image','Table','Smiley','HorizontalRule','Source','Styles','Format']
+            ['Bold','Italic','Underline','Strike','TextColor','SpecialChar','Undo','Redo','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','NumberedList','BulletedList','Link','Unlink','Smiley','Preview','Source'],
+            ['Format','Styles']
         ]
     }
 }
