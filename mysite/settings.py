@@ -11,7 +11,17 @@ INSTALLED_APPS=[
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'CodeHub',
+    'ckeditor',
 ]
+CKEDITOR_CONFIGS={
+    'default':{
+        'width':'100%',
+        'toolbar':'Custom',
+        'toolbar_Custom':[
+            ['Bold','Italic','Underline','Strike','TextColor','SpecialChar','Undo','Redo','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','NumberedList','BulletedList','Preview','Templates','Link','Unlink','Image','Table','Smiley','HorizontalRule','Source','Styles','Format']
+        ]
+    }
+}
 MIDDLEWARE=[
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

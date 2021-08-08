@@ -8,7 +8,7 @@
     </div>
     {%for answer in answers%}
         <hr>
-        {{answer.content|linebreaksbr}}<br>
+        {{answer.content|safe}}
         <b><i>Answered By : <a href="{%url 'profile' string=answer.author%}">{{answer.author}}</a> on {{answer.added_time}}</i></b><br>
         {%if answer.author == request.user%}
             <div class="center">

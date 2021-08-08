@@ -4,7 +4,7 @@
     <h4>All Questions</h4>
     {%for question in questions%}
         <hr>
-        <b><a href="{%url 'ques_detail' pk=question.pk%}">{{question.content|linebreaksbr}}</a><br>
+        <b><a href="{%url 'ques_detail' pk=question.pk%}">{{question.content}}</a><br>
         <i>Asked By : <a href="{%url 'profile' string=question.author%}">{{question.author}}</a> on {{question.added_time}}</i></b>
     {%endfor%}
 </div>
