@@ -45,5 +45,10 @@
             </tr>
         </tbody>
     </table>
+    {%if request.user == userob%}
+        <div class="center">
+            <a href="{%url 'delete_acc' string=userob.username%}"><button class="form-btn">Delete your Account</button></a>
+        </div>
+    {%endif%}
 </div>
 {%endblock%}

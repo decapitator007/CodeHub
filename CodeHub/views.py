@@ -8,6 +8,7 @@ from django.contrib import messages
 from django.conf import settings
 from django.core.mail import send_mail
 import requests,datetime
+from django.http import HttpResponse
 #About
 def about(request):
     return render(request,'CodeHub/about.html',{})
@@ -56,8 +57,8 @@ def schedule(request):
     return render(request,'CodeHub/schedule.html',{'list':list})
 #Profile
 def profile(request,string):
-    cf=get_object_or_404(cfid,username=string)
     userob=get_object_or_404(User,username=string)
+    cf=get_object_or_404(cfid,username=userob)
     apikey="dddd2a31aa144fa1b23a0cfe4d0b57c166f9cd91"
     url="https://codeforces.com/api/user.info/"
     handle=cf.cfusername
@@ -81,6 +82,42 @@ def delete_ans(request,pk,ak):
             return redirect('ques_detail',pk=pk)
         else:
             return render(request,'CodeHub/delete_ans.html',{})
+    else:
+        return redirect('identify')
+#Delete Question
+def delete_ques(request,pk):
+    question=get_object_or_404(Question,pk=pk)
+    if request.user.is_authenticated and request.user==question.author:
+        if request.method=="POST":
+            if 'yes' in request.POST:
+                del_ans=Answer.objects.filter(link_to_ques=question)
+                for answer in del_ans:
+                    user=User.objects.get(username=answer.author)
+                    cf=cfid.objects.get(username=user)
+                    cf.no_of_a=cf.no_of_a-1
+                    cf.save()
+                question.delete()
+                cf=get_object_or_404(cfid,username=request.user)
+                cf.no_of_q=cf.no_of_q-1
+                cf.save()
+            return redirect('home')
+        else:
+            return render(request,'CodeHub/delete_ques.html',{})
+    else:
+        return redirect('identify')
+#Delete Account
+def delete_acc(request,string):
+    user=get_object_or_404(User,username=string)
+    if request.user.is_authenticated and request.user==user:
+        if request.method=="POST":
+            if 'yes' in request.POST:
+                logout(request)
+                user.delete()
+                return redirect('home')
+            else:
+                return redirect('profile',string=string)
+        else:
+            return render(request,'CodeHub/delete_acc.html',{})
     else:
         return redirect('identify')
 #Edit Answer
@@ -223,7 +260,8 @@ def register(request):
                     messages.warning(request,error)
                     return render(request,'CodeHub/register.html',{'form':form})
                 User.objects.create_user(first_name=firstname,last_name=lastname,username=username,email=email,password=password)
-                cfid.objects.create(username=username,cfusername=cf)
+                user=User.objects.get(username=username)
+                cfid.objects.create(username=user,cfusername=cf)
                 messages.success(request,'Account created successfully!')
                 send_mail('Welcome to CodeHub','Hi '+firstname+'! Thank you for registering on CodeHub.',settings.EMAIL_HOST_USER,[email])
                 return redirect('identify')
