@@ -112,6 +112,7 @@ def delete_acc(request,string):
         if request.method=="POST":
             if 'yes' in request.POST:
                 logout(request)
+                send_mail('Goodbye','Hi '+user.first_name+'! Thank you for using CodeHub. Your account has been deleted.',settings.EMAIL_HOST_USER,[user.email])
                 user.delete()
                 return redirect('home')
             else:
