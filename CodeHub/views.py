@@ -79,6 +79,7 @@ def delete_ans(request,pk,ak):
                 cf=get_object_or_404(cfid,username=request.user)
                 cf.no_of_a=cf.no_of_a-1
                 cf.save()
+                messages.success(request,'Answer Deleted!')
             return redirect('ques_detail',pk=pk)
         else:
             return render(request,'CodeHub/delete_ans.html',{})
@@ -97,6 +98,7 @@ def delete_ques(request,pk):
                     cf.no_of_a=cf.no_of_a-1
                     cf.save()
                 question.delete()
+                messages.success(request,'Question Deleted!')
                 cf=get_object_or_404(cfid,username=request.user)
                 cf.no_of_q=cf.no_of_q-1
                 cf.save()
@@ -114,6 +116,7 @@ def delete_acc(request,string):
                 logout(request)
                 send_mail('Goodbye','Hi '+user.first_name+'! Thank you for using CodeHub. Your account has been deleted.',settings.EMAIL_HOST_USER,[user.email])
                 user.delete()
+                messages.success(request,'Account Deleted!')
                 return redirect('home')
             else:
                 return redirect('profile',string=string)
@@ -131,7 +134,7 @@ def edit_ans(request,pk,ak):
                 answer=form.save(commit=False)
                 answer.added_time=timezone.now()
                 answer.save()
-                messages.success(request,'Answer edited!')
+                messages.success(request,'Answer Edited!')
                 return redirect('ques_detail',pk=pk)
         else:
             form=AForm(instance=answer)
@@ -156,7 +159,7 @@ def new_ques(request):
                 cf=get_object_or_404(cfid,username=request.user)
                 cf.no_of_q=cf.no_of_q+1
                 cf.save()
-                messages.success(request,'Your question has been added!')
+                messages.success(request,'Question Added!')
                 return redirect('home')
         else:
             form=QForm()
@@ -180,7 +183,7 @@ def add_ans(request,pk):
                 cf=get_object_or_404(cfid,username=request.user)
                 cf.no_of_a=cf.no_of_a+1
                 cf.save()
-                messages.success(request,'Your answer has been added!')
+                messages.success(request,'Answer Added!')
                 return redirect('ques_detail',pk=pk)
         else:
             form=AForm()
@@ -206,7 +209,7 @@ def identify(request):
                 user=authenticate(request,username=username,password=password)
                 if user is not None:
                     login(request,user)
-                    messages.success(request,'Logged in!')
+                    messages.success(request,'Logged In!')
                     if 'next' in request.GET:
                         next=request.GET['next']
                         return redirect(next)
@@ -263,7 +266,7 @@ def register(request):
                 User.objects.create_user(first_name=firstname,last_name=lastname,username=username,email=email,password=password)
                 user=User.objects.get(username=username)
                 cfid.objects.create(username=user,cfusername=cf)
-                messages.success(request,'Account created successfully!')
+                messages.success(request,'Account Created!')
                 send_mail('Welcome to CodeHub','Hi '+firstname+'! Thank you for registering on CodeHub.',settings.EMAIL_HOST_USER,[email])
                 return redirect('identify')
         else:
@@ -273,7 +276,7 @@ def register(request):
 def out(request):
     if request.user.is_authenticated:
         logout(request)
-        messages.success(request,'Logged out!')
+        messages.success(request,'Logged Out!')
         if 'next' in request.GET:
             next=request.GET['next']
             return redirect(next)
