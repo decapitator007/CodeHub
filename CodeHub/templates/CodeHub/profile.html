@@ -47,16 +47,14 @@
     </table>
     {%if request.user == userob%}
         <div class="center">
-            <button type="button" class="form-btn" data-bs-toggle="modal" data-bs-target="#accModal">Delete your Account</button>
+            <button type="button" class="form-btn" data-bs-toggle="modal" data-bs-target="#accModal-{{userob.username}}">Delete your Account</button>
         </div>
-        <div class="modal fade" id="accModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="accModal-{{userob.username}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Do you want to delete your account?</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
                     <div class="modal-body">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="float:right;"></button>
+                        <h5 class="modal-title" id="exampleModalLabel">Do you want to delete your account?</h5>
                         <form method="POST" action="{%url 'delete_acc' string=userob.username%}">
                             {%csrf_token%}
                             <div class="center">
