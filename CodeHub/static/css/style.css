@@ -91,17 +91,10 @@ hr{
 table{
   margin:auto;
   margin-top:20px;
-  border:1px solid black;
-  border-collapse:separate;
 }
 td{
-  border:1px solid black;
-  border-collapse:separate;
   padding:10px;
 }
 th{
-  border:1px solid black;
-  border-collapse:separate;
   padding:10px;
-  text-align:center;
 }

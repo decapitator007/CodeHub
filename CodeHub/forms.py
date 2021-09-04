@@ -15,9 +15,9 @@ class QForm(forms.ModelForm):
     class Meta:
         model=Question
         fields=('content',)
-        labels={'content':'Your Question'}
+        labels={'content':''}
 class AForm(forms.ModelForm):
     class Meta:
         model=Answer
         fields=('content',)
-        labels={'content':'Your Answer'}
+        labels={'content':''}
