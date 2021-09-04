@@ -24,19 +24,19 @@
             </div>
             <nav class="navbar">
                 <ul class="left">
-                    <li><a href="{%url 'home'%}">Home</a>|</li>
-                    <li><a href="{%url 'new_ques'%}">Ask a Question</a>|</li>
-                    <li><a href="{%url 'schedule'%}">Schedule</a>|</li>
-                    <li><a href="{%url 'list'%}">List of Users</a>|</li>
+                    <li><a href="{%url 'home'%}">Home</a></li>
+                    <li><a href="{%url 'new_ques'%}">Ask a Question</a></li>
+                    <li><a href="{%url 'schedule'%}">Schedule</a></li>
+                    <li><a href="{%url 'list'%}">List of Users</a></li>
                     <li><a href="{%url 'about'%}">About</a></li>
                 </ul>
                 <ul class="right">
                     {%if user.is_authenticated%}
                         <li><a href='/out/?next={{request.path}}'>Log Out</a></li>
-                        <li><a href="{%url 'profile' string=request.user%}">{{request.user}}</a>|</li>
+                        <li><a href="{%url 'profile' string=request.user%}">{{request.user}}</a></li>
                     {%else%}
                         <li><a href="{%url 'register'%}">Sign Up</a></li>
-                        <li><a href='/identify/?next={{request.path}}'>Log In</a>|</li>
+                        <li><a href='/identify/?next={{request.path}}'>Log In</a></li>
                     {%endif%}
                 </ul>
             </nav>
