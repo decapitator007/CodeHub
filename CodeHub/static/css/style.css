@@ -47,7 +47,8 @@ h4{
   text-align:center;
 }
 hr{
-  border-top:2px solid black;
+  border-top:0.1rem solid black;
+  opacity:1;
 }
 .content{
   padding:20px;
@@ -98,10 +99,4 @@ hr{
 table{
   margin:auto;
   margin-top:20px;
-}
-td{
-  padding:10px;
-}
-th{
-  padding:10px;
 }

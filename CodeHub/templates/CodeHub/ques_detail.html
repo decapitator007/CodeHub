@@ -13,7 +13,26 @@
         {%if answer.author == request.user%}
             <div class="center">
                 <a href="{%url 'edit_ans' pk=question.pk ak=answer.pk%}">{%include './icons/pencil-fill.svg'%}</a>
-                <a href="{%url 'delete_ans' pk=question.pk ak=answer.pk%}">{%include './icons/trash.svg'%}</a>
+                <a href="#" data-bs-toggle="modal" data-bs-target="#answerModal">{%include './icons/trash.svg'%}</a>
+            </div>
+            <div class="modal fade" id="answerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Do you want to delete this answer?</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="POST" action="{%url 'delete_ans' pk=question.pk ak=answer.pk%}">
+                                {%csrf_token%}
+                                <div class="center">
+                                    <button type="submit" class="form-btn" name="yes">YES</button>
+                                    <button type="submit" class="form-btn" name="no">NO</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         {%endif%}
     {%endfor%}

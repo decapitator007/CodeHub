@@ -8,7 +8,26 @@
         <i>Asked By : <a href="{%url 'profile' string=question.author%}">{{question.author}}</a> on {{question.added_time}}</i></b>
         {%if question.author == request.user%}
             <div class="center">
-                <a href="{%url 'delete_ques' pk=question.pk%}">{%include './icons/trash.svg'%}</a>
+                <a href="#" data-bs-toggle="modal" data-bs-target="#qModal">{%include './icons/trash.svg'%}</a>
+            </div>
+            <div class="modal fade" id="qModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Do you want to delete this question?</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="POST" action="{%url 'delete_ques' pk=question.pk%}">
+                                {%csrf_token%}
+                                <div class="center">
+                                    <button type="submit" class="form-btn" name="yes">YES</button>
+                                    <button type="submit" class="form-btn" name="no">NO</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         {%endif%}
     {%endfor%}
