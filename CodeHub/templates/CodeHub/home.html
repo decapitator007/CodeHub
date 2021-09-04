@@ -1,7 +1,7 @@
 {%extends 'CodeHub/form_base.html'%}
 {%block content%}
 <div class="content">
-    <h4>All Questions</h4>
+    <h5 class="display-5">ALL QUESTIONS</h5>
     {%for question in questions%}
         <hr>
         <b><a href="{%url 'ques_detail' pk=question.pk%}">{{question.content}}</a><br>
