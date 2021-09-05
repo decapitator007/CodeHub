@@ -7,21 +7,27 @@
         <!--<meta name="viewport" content="width=device-width,initial-scale=1.0">-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="{%static 'css/cs.css'%}">
+        <link rel="stylesheet" href="{%static 'css/css1.css'%}">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-        <link rel="icon" href="{%static 'images/favicon.png'%}" sizes="16x16" type="image/png">
+        <link rel="icon" href="{%static 'images/Icon.png'%}" sizes="16x16" type="image/png">
     </head>
     <body>
-        {%for message in messages%}
-            <div class="alert alert-{{message.tags}} alert-dismissible" role="alert" id="liveAlert" style="margin-bottom:0;">
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                {{message}}
-            </div>
-        {%endfor%}
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            {%for message in messages%}
+                <div style="z-index:11">
+                    <div id="liveToast-{{forloop.counter}}" class="toast align-items-center text-white bg-{{message.tags}} border-0" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+                        <div class="toast-body">
+                            {{message}} <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close" style="float:right;"></button>
+                        </div>
+                    </div>
+                </div>
+            {%endfor%}
+            <script src="{%static 'js/toast.js'%}"></script>
+        </div>
         <header>
             <div class="heading">
-                <a href="/">{%include './icons/CodeHub.svg'%}</a>
+                <a href="/">{%include './icons/logo.svg'%}</a>
             </div>
             <nav class="navbar">
                 <ul class="left">
