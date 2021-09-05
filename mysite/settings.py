@@ -1,7 +1,7 @@
 import os
 BASE_DIR=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY=')!!pzhw98h9b))j_2pf^bdxm=kt@3tt2u4$nz5bd#12aq*)kp('
-DEBUG=True
+DEBUG=False
 ALLOWED_HOSTS=['127.0.0.1','.pythonanywhere.com']
 INSTALLED_APPS=[
     'django.contrib.admin',
