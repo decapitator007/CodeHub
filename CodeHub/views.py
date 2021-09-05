@@ -14,7 +14,7 @@ def about(request):
     return render(request,'CodeHub/about.html',{})
 #List of Users
 def list(request):
-    userlist=User.objects.all()
+    userlist=User.objects.all().order_by('first_name')
     return render(request,'CodeHub/list.html',{'userlist':userlist})
 #Schedule
 def myFunc(e):
