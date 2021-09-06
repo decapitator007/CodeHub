@@ -275,3 +275,6 @@ def out(request):
         else:
             return redirect('home')
     return redirect('identify')
+#404 Error
+def error_404(request,exception):
+    return render(request,'CodeHub/404.html')
