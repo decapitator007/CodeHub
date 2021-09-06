@@ -6,7 +6,6 @@ from .forms import signin,signup,QForm,AForm
 from .models import Question,Answer,cfid
 from django.contrib import messages
 from django.conf import settings
-from django.core.mail import send_mail
 import requests,datetime
 from django.http import HttpResponse
 #About
@@ -109,7 +108,6 @@ def delete_acc(request,string):
         if request.method=="POST":
             if 'yes' in request.POST:
                 logout(request)
-                send_mail('Goodbye','Hi '+user.first_name+'! Thank you for using CodeHub. Your account has been deleted.',settings.EMAIL_HOST_USER,[user.email])
                 user.delete()
                 messages.success(request,'Account Deleted!')
                 return redirect('home')
@@ -262,7 +260,6 @@ def register(request):
                 user=User.objects.get(username=username)
                 cfid.objects.create(username=user,cfusername=cf)
                 messages.success(request,'Account Created!')
-                send_mail('Welcome to CodeHub','Hi '+firstname+'! Thank you for registering on CodeHub.',settings.EMAIL_HOST_USER,[email])
                 return redirect('identify')
         else:
             form=signup()
