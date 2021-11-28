@@ -33,15 +33,11 @@ def schedule(request):
     list5=[]
     list=[]
     kontests("https://kontests.net/api/v1/codeforces",list1)
-    kontests("https://kontests.net/api/v1/code_chef",list2)
     kontests("https://kontests.net/api/v1/leet_code",list3)
     kontests("https://kontests.net/api/v1/kick_start",list4)
     kontests("https://kontests.net/api/v1/at_coder",list5)
     for i in list1:
         i['site']='Codeforces'
-        list.append(i)
-    for i in list2:
-        i['site']='Codechef'
         list.append(i)
     for i in list3:
         i['site']='Leetcode'
